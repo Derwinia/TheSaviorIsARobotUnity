@@ -75,17 +75,11 @@ public class BuildingMenu : MonoBehaviour
 
     public void Craft(Tool tool)
     {
-        bool craftable = true;
-        if(tool.CraftingWoodCost > 0)
+        if(ressources.CheckIfEnough(tool.CraftingWoodCost))
         {
-            if(!ressources.RemoveWood(tool.CraftingWoodCost)) craftable = false;
-        }
-
-        if(craftable)
-        {
-            if (!playerInventory.AddTool(tool))
+            if (playerInventory.AddTool(tool))
             {
-                ressources.AddWood(tool.CraftingWoodCost);
+                ressources.removeResources(tool.CraftingWoodCost);
             }
         }
     }

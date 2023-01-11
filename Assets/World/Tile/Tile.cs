@@ -1,15 +1,25 @@
+using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Tile : MonoBehaviour
 {
-    private GameObject building = null;
     private GameObject buildingGhost = null;
     private GameObject ghostInstance = null;
+    private Building building = null;
 
+    private bool constructMode = false;
     private bool isConstructable;
     public bool IsConstructable { get { return isConstructable; } }
     private bool constructed = false;
+
+    PlayerControl playerControl;
+
+    private void Start()
+    {
+        playerControl= FindObjectOfType<PlayerControl>();
+    }
 
     public void InitTile()
     {
@@ -27,20 +37,20 @@ public class Tile : MonoBehaviour
     {
         if (selected != null)
         {
-            Building detailsBuilding = selected.GetComponent<Building>();
-            building = detailsBuilding.BuildingPrefab;
-            buildingGhost = detailsBuilding.BuildingPrefabGhost;
+            constructMode = true;
+            building = selected.GetComponent<Building>();
+            buildingGhost = building.BuildingPrefabGhost;
         }
         else
         {
-            building = null;
+            constructMode = false;
             buildingGhost = null;
         }
     }
 
     private void OnMouseEnter()
     {
-        if (isConstructable && !IsMouseOverUI() && building != null)
+        if (isConstructable && !IsMouseOverUI() && buildingGhost != null)
         {
             ghostInstance = Instantiate(buildingGhost, new Vector3(), Quaternion.identity);
             ghostInstance.transform.SetParent(transform, false);
@@ -50,15 +60,22 @@ public class Tile : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!constructed && !IsMouseOverUI() && building != null)
+
+        if (constructMode)
         {
-            
-            Destroy(ghostInstance);
-            GameObject buildingInstance = Instantiate(building, new Vector3(), Quaternion.identity);
-            buildingInstance.transform.SetParent(transform, false);
-            constructed = true;
+            if (!constructed && !IsMouseOverUI() && buildingGhost != null)
+            {
+                if (building.ConstructBuilding(transform))
+                {
+                    Destroy(ghostInstance);
+                    constructed = true;
+                }
+            }
         }
     }
+
+
+
 
     private void OnMouseExit()
     {

@@ -16,9 +16,18 @@ public class Building : MonoBehaviour
     [SerializeField] int constructionWoodCost;
     public int ConstructionWoodCost { get { return constructionWoodCost; } }
 
+    private Ressources ressources;
 
-    public void ConstructBuilding()
+    public bool ConstructBuilding(Transform transform)
     {
-
+        ressources = FindObjectOfType<Ressources>();
+        if (ressources.CheckIfEnough(constructionWoodCost))
+        {
+            ressources.removeResources(constructionWoodCost);
+            GameObject buildingInstance = Instantiate(buildingPrefab, new Vector3(0,1,0), Quaternion.identity);
+            buildingInstance.transform.SetParent(transform, false);
+            return true;
+        }
+        return false;
     }
 }

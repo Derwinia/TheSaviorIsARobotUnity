@@ -852,7 +852,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1480
+  m_Name: pb_Mesh-1478
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1016,7 +1016,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1466
+  m_Name: pb_Mesh-1464
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1822,7 +1822,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1494
+  m_Name: pb_Mesh-1492
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1986,7 +1986,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1452
+  m_Name: pb_Mesh-1450
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2239,6 +2239,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1552218975, guid: e0383e71f3ed19844acad3bbbb40b8a9, type: 3}
+      propertyPath: PlayerCamera
+      value: 
+      objectReference: {fileID: 963194227}
     - target: {fileID: 1839735320207344290, guid: e0383e71f3ed19844acad3bbbb40b8a9, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2924,7 +2928,7 @@ PrefabInstance:
       objectReference: {fileID: 802201134}
     - target: {fileID: 4739209107722292807, guid: ca7212749bab5bb4cbc86467277e728c, type: 3}
       propertyPath: m_VersionIndex
-      value: 12881
+      value: 12899
       objectReference: {fileID: 0}
     - target: {fileID: 5416515709747980615, guid: ca7212749bab5bb4cbc86467277e728c, type: 3}
       propertyPath: m_Mesh
@@ -2932,7 +2936,7 @@ PrefabInstance:
       objectReference: {fileID: 793494853}
     - target: {fileID: 5416515709747980615, guid: ca7212749bab5bb4cbc86467277e728c, type: 3}
       propertyPath: m_VersionIndex
-      value: 1809
+      value: 1827
       objectReference: {fileID: 0}
     - target: {fileID: 5520366544416032795, guid: ca7212749bab5bb4cbc86467277e728c, type: 3}
       propertyPath: m_Mesh
@@ -2940,7 +2944,7 @@ PrefabInstance:
       objectReference: {fileID: 559042525}
     - target: {fileID: 5520366544416032795, guid: ca7212749bab5bb4cbc86467277e728c, type: 3}
       propertyPath: m_VersionIndex
-      value: 3103
+      value: 3121
       objectReference: {fileID: 0}
     - target: {fileID: 6034132160529972414, guid: ca7212749bab5bb4cbc86467277e728c, type: 3}
       propertyPath: m_Mesh
@@ -2964,7 +2968,7 @@ PrefabInstance:
       objectReference: {fileID: 572391576}
     - target: {fileID: 8023198811066855075, guid: ca7212749bab5bb4cbc86467277e728c, type: 3}
       propertyPath: m_VersionIndex
-      value: 3100
+      value: 3118
       objectReference: {fileID: 0}
     - target: {fileID: 9034574504126568046, guid: ca7212749bab5bb4cbc86467277e728c, type: 3}
       propertyPath: m_Mesh
@@ -4158,7 +4162,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.6905767, y: 1}
+    m_SensorSize: {x: 1.6556474, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

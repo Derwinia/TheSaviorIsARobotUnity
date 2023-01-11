@@ -44,7 +44,6 @@ public class InventoryMenu : MonoBehaviour
 
     public void updateMenu(List<Tool> inventory)
     {
-        Debug.Log("passe par UpdateMenu");
         this.inventory = inventory;
         int nbItem = 0;
         foreach (Tool tool in inventory)
