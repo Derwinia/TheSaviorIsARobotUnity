@@ -43,13 +43,13 @@ public class BuildingMenu : MonoBehaviour
         {
             nbButton++;
 
-            int posX = -42;
-            int posY = 220;
+            float posX = -48f / 1920 * Screen.width;
+            float posY = 800f / 1920 * Screen.height;
             if (nbButton % 2 == 0) posX = -posX;
             if(nbButton > 2)
             {
                 if((nbButton-2) % 2 == 1)
-                posY = posY - (Mathf.FloorToInt((nbButton-1)/2)*82);
+                posY = posY - (Mathf.FloorToInt((nbButton-1)/2)* (85f / 1920 * Screen.width));
             }
             GameObject newButton = Instantiate(MenuButtonModel, new Vector3(posX, posY), Quaternion.identity);
             newButton.transform.SetParent(panel.transform, false);

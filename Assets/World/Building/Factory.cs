@@ -19,6 +19,8 @@ public class Factory : Building
         factoryTask = new BuildingTask();
         Tool tool = new Tool("Hache", 5, 4, 1);
         factoryTask.craftableToolList.Add(tool);
+        factoryTask.craftableToolList.Add(tool);
+        factoryTask.craftableToolList.Add(tool);
     }
 
     private void OnMouseDown()
