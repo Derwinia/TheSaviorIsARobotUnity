@@ -44,18 +44,24 @@ public class InventoryMenu : MonoBehaviour
 
     public void updateMenu(List<Tool> inventory)
     {
+        foreach (GameObject tool in inventoryUI)
+        {
+            Destroy(tool);
+        }
         this.inventory = inventory;
         int nbItem = 0;
         foreach (Tool tool in inventory)
         {
-            int posX = 0;
+            float posX = 5f / 1920 * Screen.width;
             int posY = 0;
-            posX = posX + nbItem * 80;
+            posX = (int)(posX + nbItem * (85f/1920*Screen.width));
+
             nbItem++;
             GameObject newButton = Instantiate(MenuButtonModel, new Vector3(posX, posY), Quaternion.identity);
             newButton.transform.SetParent(panel.transform, false);
             newButton.name = tool.Name;
             newButton.GetComponentInChildren<TextMeshProUGUI>().text = tool.Name;
+            inventoryUI.Add(newButton);
             RectTransform rectPosition = newButton.GetComponentInChildren<RectTransform>();
             rectPosition.anchorMin = new Vector2(0,0.5f);
             rectPosition.anchorMax = new Vector2(0,0.5f);
