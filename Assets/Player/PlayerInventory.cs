@@ -16,12 +16,18 @@ public class PlayerInventory : MonoBehaviour
 
     public bool AddTool(Tool tool)
     {
-        if (inventory.Count < 8)
+        if (CheckInventorySpace())
         {
             inventory.Add(tool);
             inventoryMenu.updateMenu(inventory);
             return true;
         }
+        return false; 
+    }
+
+    public bool CheckInventorySpace()
+    {
+        if(inventory.Count < 8)return true; 
         return false;
     }
 }

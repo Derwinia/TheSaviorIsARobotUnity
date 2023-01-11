@@ -22,14 +22,21 @@ public class Ressources : MonoBehaviour
         UpdateUI();
     }
 
-    public bool RemoveWood(int quantity)
+    public bool removeResources(int wood)
     {
-        if(wood - quantity >= 0) {
-            wood -= quantity;
+        if (CheckIfEnough(wood))
+        {
+            this.wood -= wood;
             UpdateUI();
             return true;
         }
         return false;
+    }
+
+    public bool CheckIfEnough(int wood)
+    {
+        if (this.wood - wood < 0) return false;
+        return true;
     }
 
     private void UpdateUI()

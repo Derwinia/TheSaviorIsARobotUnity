@@ -5,12 +5,14 @@ using UnityEngine.EventSystems;
 public class TreeRessource : MonoBehaviour
 {
     [SerializeField] int cutDelay = 1;
+    private bool isUsed = false;
     private void OnMouseDown()
     {
-        if (!IsMouseOverUI()) StartCoroutine(CutTree());
+        if (!IsMouseOverUI() && !isUsed) StartCoroutine(CutTree());
     }
     IEnumerator CutTree()
     {
+        isUsed = true;
         Ressources ressources = FindObjectOfType<Ressources>();
         foreach (Transform child in transform)
         {
