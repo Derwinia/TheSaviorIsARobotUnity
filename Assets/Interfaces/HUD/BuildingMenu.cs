@@ -8,7 +8,7 @@ public class BuildingMenu : MonoBehaviour
 {
     [SerializeField] GameObject MenuButtonModel;
 
-    private Ressources ressources;
+    private RessourceHUD ressources;
     private PlayerInventory playerInventory;
 
     private GameObject panel;
@@ -21,7 +21,7 @@ public class BuildingMenu : MonoBehaviour
         visible = false;
         panel = transform.Find("BuildingPanel").gameObject;
         hidePosition = panel.transform.position;
-        ressources = FindObjectOfType<Ressources>();
+        ressources = FindObjectOfType<RessourceHUD>();
         playerInventory= FindObjectOfType<PlayerInventory>();
     }
 
@@ -43,19 +43,24 @@ public class BuildingMenu : MonoBehaviour
         {
             nbButton++;
 
-            float posX = -48f / 1920 * Screen.width;
-            float posY = 800f / 1920 * Screen.height;
+            float posX = -50f;
+            float posY = 425f;
             if (nbButton % 2 == 0) posX = -posX;
             if(nbButton > 2)
             {
                 if((nbButton-2) % 2 == 1)
-                posY = posY - (Mathf.FloorToInt((nbButton-1)/2)* (85f / 1920 * Screen.width));
+                posY = posY - (Mathf.FloorToInt((nbButton-1)/2)* 95f);
             }
             GameObject newButton = Instantiate(MenuButtonModel, new Vector3(posX, posY), Quaternion.identity);
             newButton.transform.SetParent(panel.transform, false);
             newButton.name = nbButton.ToString();
             newButton.GetComponentInChildren<TextMeshProUGUI>().text = tool.Name;
             newButton.GetComponent<Button>().onClick.AddListener(delegate { Craft(tool); });
+            Image[] images = newButton.GetComponentsInChildren<Image>();
+            foreach (Image image in images)
+            {
+                if (image.transform.name == "Image") image.sprite = tool.Picture;
+            }
             list.Add(newButton);
         }
     }

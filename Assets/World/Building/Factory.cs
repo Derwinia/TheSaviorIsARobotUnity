@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Factory : Building
 {
+    [SerializeField] Sprite hachePic;
+
     private BuildingMenu buildingMenu;
 
     //private int level;
@@ -17,13 +20,11 @@ public class Factory : Building
         //level = 1;
 
         factoryTask = new BuildingTask();
-        Tool tool = new Tool("Hache", 5, 4, 1);
-        factoryTask.craftableToolList.Add(tool);
-        factoryTask.craftableToolList.Add(tool);
+        Tool tool = new Tool("Hache", 5, 4, 1, hachePic);
         factoryTask.craftableToolList.Add(tool);
     }
 
-    private void OnMouseDown()
+    public override void SelectedBuilding()
     {
         buildingMenu.ShowSelectedBuilding(factoryTask);
     }

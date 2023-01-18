@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    List<Tool> inventory = new List<Tool>();
+    private List<Tool> toolInventory = new List<Tool>();
+    private Tool selectedTool;
 
     InventoryMenu inventoryMenu;
     void Start()
     {
-        inventory.Add(new Tool("Vide", 0, 99999, 0));
+        toolInventory.Add(new Tool("Vide", 0, 99999, 0, null));
         inventoryMenu = FindObjectOfType<InventoryMenu>();
-        inventoryMenu.updateMenu(inventory);
+        inventoryMenu.UpdateMenu(toolInventory);
+        selectedTool = toolInventory[0];
     }
 
     public bool AddTool(Tool tool)
     {
         if (CheckInventorySpace())
         {
-            inventory.Add(tool);
-            inventoryMenu.updateMenu(inventory);
+            toolInventory.Add(tool);
+            inventoryMenu.UpdateMenu(toolInventory);
             return true;
         }
         return false; 
@@ -27,7 +29,12 @@ public class PlayerInventory : MonoBehaviour
 
     public bool CheckInventorySpace()
     {
-        if(inventory.Count < 8)return true; 
+        if(toolInventory.Count < 8)return true; 
         return false;
+    }
+
+    public void SelectedTool(int tool)
+    {
+        selectedTool = toolInventory[tool];
     }
 }

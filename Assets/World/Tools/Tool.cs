@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tool : Craftable
 {
@@ -9,8 +10,9 @@ public class Tool : Craftable
     private int craftingTime;
     private int maxDurability;
     private int durability;
-    private int CraftingWoodcost;
-    public Tool(string name, int craftingTime, int maxDurability, int CraftingWoodcost) : base(name, craftingTime, CraftingWoodcost)
+    private int craftingWoodcost;
+    private Sprite picture;
+    public Tool(string name, int craftingTime, int maxDurability, int CraftingWoodcost, Sprite picture) : base(name, craftingTime, CraftingWoodcost, picture)
     {
         this.maxDurability = maxDurability;
         durability = maxDurability;

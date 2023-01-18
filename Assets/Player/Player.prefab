@@ -629,6 +629,7 @@ GameObject:
   - component: {fileID: 1552218974}
   - component: {fileID: 1552218973}
   - component: {fileID: 1552218975}
+  - component: {fileID: 8083024489531956163}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -675,7 +676,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &1552218973
 CapsuleCollider:
@@ -687,10 +688,10 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: c2815a7ab32e42c4bb42f59caacb8ec1, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
-  m_Height: 1.6
+  m_Radius: 0.85
+  m_Height: 6.5
   m_Direction: 1
-  m_Center: {x: 0, y: 0.8, z: 0}
+  m_Center: {x: 0, y: 3, z: 0}
 --- !u!114 &1552218975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -703,9 +704,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c1fe1d23a2d7ee46bcfa87beafad65f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerCamera: {fileID: 0}
   MovingTurnSpeed: 360
   StationaryTurnSpeed: 180
   MoveSpeedMultiplier: 10
+  ressource: {fileID: 0}
+  tile: {fileID: 0}
+  building: {fileID: 0}
+  constructMode: 0
+--- !u!114 &8083024489531956163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839735320207344290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c62fcfc55904f5479652785293b0c28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2136304892613503570
 GameObject:
   m_ObjectHideFlags: 0

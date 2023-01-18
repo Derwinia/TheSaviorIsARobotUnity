@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: -7529430569181982329}
   m_Layer: 0
   m_Name: Factory
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -233,9 +233,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingPrefab: {fileID: 838173975565932068}
-  buildingPrefabGhost: {fileID: 2662959328470942680, guid: 4d0ebee405b4eb94b94fbaad4279e31c, type: 3}
-  constructionTime: 5
+  buildingPrefabGhost: {fileID: 6299756175650111577, guid: 646e97153bc9a704bbc00e7050ef0aa7, type: 3}
+  constructionTime: 2
   constructionWoodCost: 10
+  constructionReady: 0
+  hachePic: {fileID: 21300000, guid: 9fe824b292a4b5e4db317fe4bcc73482, type: 3}
 --- !u!1 &5306451095551612310
 GameObject:
   m_ObjectHideFlags: 0

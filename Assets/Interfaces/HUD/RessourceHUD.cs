@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Ressources : MonoBehaviour
+public class RessourceHUD : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI woodDisplay;
+    [SerializeField] TextMeshProUGUI co2Display;
 
-    private int wood;
     public int Wood { get { return wood; } }
+    private int wood;
+
+    public int Co2 { get { return co2; } set { co2 = value; } }
+    private int co2 = 0;
 
     void Start()
     {
-        wood = 0;
+        wood = 10;
         UpdateUI();
     }
 
@@ -39,8 +43,9 @@ public class Ressources : MonoBehaviour
         return true;
     }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
         woodDisplay.text = ("Bois : " + wood);
+        co2Display.text = ("CO2 : "+ co2);
     }
 }

@@ -5,16 +5,18 @@ using UnityEngine.EventSystems;
 
 public class Tile : MonoBehaviour
 {
-    private GameObject buildingGhost = null;
     private GameObject ghostInstance = null;
-    private Building building = null;
+    public Building SelectedBuilding { get { return selectedBuilding; } }
+    private Building selectedBuilding = null;
 
-    private bool constructMode = false;
-    private bool isConstructable;
+    GameObject buildingInstance = null;
+
     public bool IsConstructable { get { return isConstructable; } }
-    private bool constructed = false;
+    private bool isConstructable;
 
     PlayerControl playerControl;
+
+    IEnumerator CorConstruction;
 
     private void Start()
     {
@@ -37,53 +39,67 @@ public class Tile : MonoBehaviour
     {
         if (selected != null)
         {
-            constructMode = true;
-            building = selected.GetComponent<Building>();
-            buildingGhost = building.BuildingPrefabGhost;
+            selectedBuilding = selected.GetComponent<Building>();
         }
         else
         {
-            constructMode = false;
-            buildingGhost = null;
+            selectedBuilding = null;
         }
+    }
+
+    public void ConstructBuilding()
+    {
+        RessourceHUD ressources = FindObjectOfType<RessourceHUD>();
+        if (ressources.removeResources(selectedBuilding.ConstructionWoodCost))
+        {
+            Destroy(ghostInstance);
+            buildingInstance = Instantiate(selectedBuilding.BuildingPrefab, new Vector3(0, 1, 0), Quaternion.identity);
+            buildingInstance.transform.SetParent(transform, false);
+            CorConstruction = ConstructAnimation();
+            StartCoroutine(CorConstruction);
+        }
+        else
+        {
+            Debug.Log("pas assez de ressources");
+        }
+    }
+
+    public IEnumerator ConstructAnimation()
+    {
+        Building building = buildingInstance.GetComponent<Building>();
+        foreach (Transform child in buildingInstance.transform)
+        {
+            child.transform.gameObject.SetActive(false);
+        }
+        foreach (Transform child in buildingInstance.transform)
+        {
+            yield return new WaitForSeconds(building.ConstructionTime);
+            child.transform.gameObject.SetActive(true);
+        }
+        building.constructionReady= true;
     }
 
     private void OnMouseEnter()
     {
-        if (isConstructable && !IsMouseOverUI() && buildingGhost != null)
+        if (isConstructable && !IsMouseOverUI() && selectedBuilding != null)
         {
-            ghostInstance = Instantiate(buildingGhost, new Vector3(), Quaternion.identity);
+            ghostInstance = Instantiate(selectedBuilding.BuildingPrefabGhost, new Vector3(), Quaternion.identity);
             ghostInstance.transform.SetParent(transform, false);
-            isConstructable = false;
         }
     }
-
-    private void OnMouseDown()
-    {
-
-        if (constructMode)
-        {
-            if (!constructed && !IsMouseOverUI() && buildingGhost != null)
-            {
-                if (building.ConstructBuilding(transform))
-                {
-                    Destroy(ghostInstance);
-                    constructed = true;
-                }
-            }
-        }
-    }
-
-
-
 
     private void OnMouseExit()
     {
-        if (!constructed && !IsMouseOverUI())
+        Destroy(ghostInstance);
+    }
+
+    public bool InRange()
+    {
+        if (!IsMouseOverUI())
         {
-            Destroy(ghostInstance);
-            isConstructable = true;
+            if (Vector3.Distance(transform.position, playerControl.transform.position) < playerControl.ActionRange) return true;
         }
+        return false;
     }
 
     private bool IsMouseOverUI()

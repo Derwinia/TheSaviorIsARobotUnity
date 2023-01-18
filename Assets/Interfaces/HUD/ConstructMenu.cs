@@ -15,12 +15,15 @@ public class ConstructMenu : MonoBehaviour
     private bool visible;
     private Vector3 hidePosition;
 
+    PlayerControl playerControl;
+
     void Start()
     {
         worldCreation = FindObjectOfType<WorldCreation>();
         visible = false;
         panel = transform.Find("ConstructPanel").gameObject;
         hidePosition = panel.transform.position;
+        playerControl = FindObjectOfType<PlayerControl>();
     }
 
     public void ShowMenu()
@@ -28,6 +31,7 @@ public class ConstructMenu : MonoBehaviour
         if (!visible)
         {
             visible = true;
+            playerControl.constructMode = true;
             panel.transform.position = hidePosition - new Vector3(hidePosition.x - Screen.width,0,0);
         }
     }
@@ -37,6 +41,7 @@ public class ConstructMenu : MonoBehaviour
         if (visible)
         {
             visible = false;
+            playerControl.constructMode = false;
             panel.transform.position = hidePosition;
             foreach (Tile tile in worldCreation.WorldTiles)
             {
