@@ -50,7 +50,7 @@ public class Tile : MonoBehaviour
     public void ConstructBuilding()
     {
         RessourceHUD ressources = FindObjectOfType<RessourceHUD>();
-        if (ressources.removeResources(selectedBuilding.ConstructionWoodCost))
+        if (ressources.RemoveResources(selectedBuilding.ConstructionWoodCost,0))
         {
             Destroy(ghostInstance);
             buildingInstance = Instantiate(selectedBuilding.BuildingPrefab, new Vector3(0, 1, 0), Quaternion.identity);
@@ -91,15 +91,6 @@ public class Tile : MonoBehaviour
     private void OnMouseExit()
     {
         Destroy(ghostInstance);
-    }
-
-    public bool InRange()
-    {
-        if (!IsMouseOverUI())
-        {
-            if (Vector3.Distance(transform.position, playerControl.transform.position) < playerControl.ActionRange) return true;
-        }
-        return false;
     }
 
     private bool IsMouseOverUI()

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class WorldCreation : MonoBehaviour
+public class World : MonoBehaviour
 {
     RessourceHUD ressourceHUD;
 
@@ -16,8 +16,11 @@ public class WorldCreation : MonoBehaviour
 
     int center;
     int pool;
-    int trashPool;
+    int treeInWorld;
+    public int TrashInWorld { get { return trashInWorld; } }
+    int trashInWorld;
     int treePool;
+    int trashPool;
 
     public IList<Tile> WorldTiles { get { return worldTiles; } }
     IList<Tile> worldTiles = new List<Tile>();
@@ -31,11 +34,11 @@ public class WorldCreation : MonoBehaviour
         if (worldSize % 2 == 0) worldSize += 1;
         center = ((worldSize - 1) / 2) + 1;
 
-        pool = worldSize * worldSize - 9;
-        trashPool = pool / 100 * 30;
-        treePool = pool - trashPool;
-        ressourceHUD.Co2 = trashPool;
-        ressourceHUD.UpdateUI();
+        pool = worldSize * worldSize - 9; 
+        trashInWorld = pool / 100 * 30;
+        treeInWorld = pool - trashInWorld;
+        treePool = treeInWorld;
+        trashPool = trashInWorld;
         createWorld();
     }
 
@@ -66,6 +69,7 @@ public class WorldCreation : MonoBehaviour
     private void InstantiateRandom(GameObject grass)
     {
         int rand = 0;
+        
         bool needToSpawn = false;
         while(!needToSpawn)
         {

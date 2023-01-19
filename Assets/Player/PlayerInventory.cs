@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    public List<Tool> ToolInventory { get { return toolInventory; } }
     private List<Tool> toolInventory = new List<Tool>();
+
+    public Tool SelectedTool { get { return selectedTool; } }
     private Tool selectedTool;
 
     InventoryMenu inventoryMenu;
     void Start()
     {
-        toolInventory.Add(new Tool("Vide", 0, 99999, 0, null));
         inventoryMenu = FindObjectOfType<InventoryMenu>();
-        inventoryMenu.UpdateMenu(toolInventory);
+        AddTool(new Tool("Vide", 0, 99999, 0, null));
         selectedTool = toolInventory[0];
     }
 
@@ -21,7 +23,7 @@ public class PlayerInventory : MonoBehaviour
         if (CheckInventorySpace())
         {
             toolInventory.Add(tool);
-            inventoryMenu.UpdateMenu(toolInventory);
+            inventoryMenu.UpdateMenu();
             return true;
         }
         return false; 
@@ -33,8 +35,27 @@ public class PlayerInventory : MonoBehaviour
         return false;
     }
 
-    public void SelectedTool(int tool)
+    public void ChangeTool(Tool tool)
     {
-        selectedTool = toolInventory[tool];
+        selectedTool = tool;
+        Debug.Log("Durabilité de l'outil selectionner = " +selectedTool.Durability);
+    }
+
+    public bool UseTool()
+    {
+        selectedTool.Durability--;
+        Debug.Log("Durabilité de l'outil apres utilisation = " + selectedTool.Durability);
+        if (selectedTool.Durability <= 0)
+        {
+            toolInventory.Remove(selectedTool);
+            selectedTool = ToolInventory[0];
+            inventoryMenu.UpdateMenu();
+            return false;
+        }
+        else
+        {
+            inventoryMenu.UpdateMenu();
+            return true;
+        }
     }
 }

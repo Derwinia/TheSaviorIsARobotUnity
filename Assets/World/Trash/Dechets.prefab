@@ -897,6 +897,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4277409926528176909}
   - component: {fileID: 1143618856032280186}
+  - component: {fileID: 3460716387355143634}
   m_Layer: 6
   m_Name: Dechets
   m_TagString: Untagged
@@ -936,6 +937,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &3460716387355143634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3267346694721195201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40f862bdcc23694aba7a02a7f05175e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUsed: 0
 --- !u!1 &3387834021363952359
 GameObject:
   m_ObjectHideFlags: 0

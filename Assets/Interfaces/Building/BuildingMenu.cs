@@ -80,11 +80,13 @@ public class BuildingMenu : MonoBehaviour
 
     public void Craft(Tool tool)
     {
-        if(ressources.CheckIfEnough(tool.CraftingWoodCost))
+        Debug.Log("Durabilité de l'outil créer = " + tool.Durability);
+        if(ressources.CheckIfEnoughWood(tool.CraftingWoodCost))
         {
-            if (playerInventory.AddTool(tool))
+            Tool copyTool = new Tool(tool.Name, tool.CraftingTime, tool.Durability, tool.CraftingWoodCost, tool.Picture);
+            if (playerInventory.AddTool(copyTool))
             {
-                ressources.removeResources(tool.CraftingWoodCost);
+                ressources.RemoveResources(tool.CraftingWoodCost,0);
             }
         }
     }

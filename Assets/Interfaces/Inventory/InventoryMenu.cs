@@ -44,8 +44,9 @@ public class InventoryMenu : MonoBehaviour
         }
     }
 
-    public void UpdateMenu(List<Tool> inventory)
+    public void UpdateMenu()
     {
+        List<Tool> inventory = playerInventory.ToolInventory;
         foreach (GameObject tool in inventoryUI)
         {
             Destroy(tool);
@@ -53,19 +54,21 @@ public class InventoryMenu : MonoBehaviour
         int nbItem = 0;
         foreach (Tool tool in inventory)
         {
-            float posX = 5f;
+            float posX = 5f; 
             int posY = 0;
             posX = (int)(posX + nbItem * 95f);
 
-            nbItem++;
+            
             GameObject newButton = Instantiate(MenuButtonModel, new Vector3(posX, posY), Quaternion.identity);
             newButton.transform.SetParent(panel.transform, false);
             newButton.name = tool.Name;
-            newButton.GetComponentInChildren<TextMeshProUGUI>().text = tool.Name;
+            newButton.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = tool.Name;
+            newButton.transform.Find("Durability").GetComponent<TextMeshProUGUI>().text = tool.Durability +"/"+tool.MaxDurability;
+            newButton.GetComponent<Button>().onClick.AddListener(() => ChooseTool(tool));
             Image[] images = newButton.GetComponentsInChildren<Image>();
-            foreach(Image image in images)
+            foreach (Image image in images)
             {
-                if (image.transform.name == "Image") image.sprite = tool.Picture;
+                if (image.transform.name == "Picture") image.sprite = tool.Picture;
             }
                 //.sprite = tool.Picture;
             inventoryUI.Add(newButton);
@@ -73,11 +76,14 @@ public class InventoryMenu : MonoBehaviour
             rectPosition.anchorMin = new Vector2(0,0.5f);
             rectPosition.anchorMax = new Vector2(0,0.5f);
             rectPosition.pivot = new Vector2(0, 0.5f);
+            nbItem++;
         }
     }
 
-    public void ChooseTool(int tool)
+    public void ChooseTool(Tool tool)
     {
-        playerInventory.SelectedTool(tool);
+        
+        playerInventory.ChangeTool(tool);
+
     }
 }

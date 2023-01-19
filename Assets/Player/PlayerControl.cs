@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -15,18 +16,16 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] float MovingTurnSpeed = 360;
     [SerializeField] float StationaryTurnSpeed = 180;
     [SerializeField] float MoveSpeedMultiplier = 10f;
+    private float ActionRange = 10f;
+
     private Vector3 MoveDirections;
     Rigidbody Rigidbody;
     float TurnAmount;
     float ForwardAmount;
-    CapsuleCollider Capsule;
 
-    public float ActionRange { get { return actionRange; } }
-    float actionRange = 10f;
     IEnumerator Cor;
 
     RaycastHit hit;
-    GameObject hitObject;
 
     public Ressource ressource;
     public Tile tile;
@@ -40,7 +39,6 @@ public class PlayerControl : MonoBehaviour
     private void Start()
     {
         Rigidbody = GetComponent<Rigidbody>();
-        Capsule = GetComponent<CapsuleCollider>();
         
         layerMask = ~layerMask;
     }
@@ -96,6 +94,9 @@ public class PlayerControl : MonoBehaviour
                     case "Building":
                         MouseClickOnBuilding();
                         break;
+                    case "Trash":
+                        MouseClickOnRessource();
+                        break;
 
                     default: break;
                 }
@@ -108,7 +109,7 @@ public class PlayerControl : MonoBehaviour
         tile = hit.transform.gameObject.GetComponent<Tile>();
         if (constructMode)
         {
-            if (tile.InRange())
+            if (InRange(tile.gameObject))
             {
                 tile.ConstructBuilding();
             }
@@ -128,9 +129,8 @@ public class PlayerControl : MonoBehaviour
     
     private void MouseClickOnRessource()
     {
-        hitObject = hit.transform.gameObject;
-        ressource = hitObject.gameObject.GetComponentInParent<Ressource>();
-        if (ressource.InRange())
+        ressource = hit.transform.gameObject.GetComponentInParent<Ressource>();
+        if (InRange(ressource.gameObject))
         {
             Cor = ressource.Harvest();
             StartCoroutine(Cor);
@@ -145,10 +145,8 @@ public class PlayerControl : MonoBehaviour
 
     private void MouseClickOnBuilding()
     {
-        hitObject = hit.transform.gameObject;
-        building = hitObject.gameObject.GetComponentInParent<Building>();
+        building = hit.transform.gameObject.GetComponentInParent<Building>();
         building.SelectedBuilding();
-        
     }
 
     public IEnumerator MoveFromMouse()
@@ -165,7 +163,7 @@ public class PlayerControl : MonoBehaviour
         {
             if(ressource is not null)
             {
-                while (travelPercent < 1f && !ressource.InRange())
+                while (travelPercent < 1f && !InRange(ressource.gameObject))
                 {
                     travelPercent += Time.deltaTime * (MoveSpeedMultiplier / d);
                     transform.position = Vector3.Lerp(startPosition, endPosition, travelPercent);
@@ -176,7 +174,7 @@ public class PlayerControl : MonoBehaviour
                 StartCoroutine(Cor);
             }
             else if (tile is not null){
-                while (travelPercent < 1f && !tile.InRange())
+                while (travelPercent < 1f && !InRange(tile.gameObject))
                 {
                     travelPercent += Time.deltaTime * (MoveSpeedMultiplier / d);
                     transform.position = Vector3.Lerp(startPosition, endPosition, travelPercent);
@@ -209,9 +207,11 @@ public class PlayerControl : MonoBehaviour
     {
         Rigidbody.velocity = new Vector3();
     }
+
     private void StopActionCoroutine()
     {
         if (ressource is not null)ressource.isUsed = false;
+        moveForAction = false;
         if (Cor is not null)
         {
             StopCoroutine(Cor);
@@ -220,6 +220,14 @@ public class PlayerControl : MonoBehaviour
         ressource = null;
     }
 
+    public bool InRange(GameObject distantObject)
+    {
+        if (!IsMouseOverUI())
+        {
+            if (Vector3.Distance(distantObject.transform.position, transform.position) < ActionRange) return true;
+        }
+        return false;
+    }
     private bool IsMouseOverUI()
     {
         return EventSystem.current.IsPointerOverGameObject();

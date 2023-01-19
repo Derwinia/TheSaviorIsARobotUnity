@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Craftable
+public class Craftable 
 {
     public string Name { get { return name; } }
     private string name;

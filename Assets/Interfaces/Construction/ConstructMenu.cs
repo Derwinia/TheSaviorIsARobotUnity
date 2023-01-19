@@ -10,7 +10,7 @@ public class ConstructMenu : MonoBehaviour
 {
 
     private GameObject panel;
-    private WorldCreation worldCreation;
+    private World world;
 
     private bool visible;
     private Vector3 hidePosition;
@@ -19,7 +19,7 @@ public class ConstructMenu : MonoBehaviour
 
     void Start()
     {
-        worldCreation = FindObjectOfType<WorldCreation>();
+        world = FindObjectOfType<World>();
         visible = false;
         panel = transform.Find("ConstructPanel").gameObject;
         hidePosition = panel.transform.position;
@@ -43,7 +43,7 @@ public class ConstructMenu : MonoBehaviour
             visible = false;
             playerControl.constructMode = false;
             panel.transform.position = hidePosition;
-            foreach (Tile tile in worldCreation.WorldTiles)
+            foreach (Tile tile in world.WorldTiles)
             {
                 if (tile.IsConstructable) tile.ChooseBuilding(null);
             }
@@ -52,7 +52,7 @@ public class ConstructMenu : MonoBehaviour
 
     public void SelectBuilding(GameObject building)
     {
-        foreach(Tile tile in worldCreation.WorldTiles)
+        foreach(Tile tile in world.WorldTiles)
         {
             if (tile.IsConstructable) tile.ChooseBuilding(building);
         }
